@@ -39,11 +39,11 @@ val customEventhubParameters =
 
 val incomingStream = spark.readStream.format("eventhubs").options(customEventhubParameters.toMap).load()
 
-//incomingStream.printSchema
+incomingStream.printSchema
 
 // Sending the incoming stream into the console.
 // Data comes in batches!
-//incomingStream.writeStream.outputMode("append").format("console").option("truncate", false).start().awaitTermination()
+// incomingStream.writeStream.outputMode("append").format("console").option("truncate", false).start().awaitTermination()
 
 
 
@@ -232,8 +232,8 @@ val streamingDataFrame = incomingStream.selectExpr(
   
 
 // Display the streaming data with the sentiment
-streamingDataFrame.writeStream.outputMode("append").format("console").option("truncate", false).start().awaitTermination()
+//streamingDataFrame.writeStream.outputMode("append").format("console").option("truncate", false).start().awaitTermination()
 
 // Stream tweets to parquet files for analysis.
-//streamingDataFrame.writeStream.outputMode("append").option("checkpointLocation","/work/output/tweets-checkpoint").start("/work/output/tweets")
+streamingDataFrame.writeStream.outputMode("append").option("checkpointLocation","/work/output/tweets-checkpoint").start("/work/output/tweets")
 
